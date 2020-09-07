@@ -1,1 +1,1 @@
-# sprint-boot-first
+# spring-boot-first
