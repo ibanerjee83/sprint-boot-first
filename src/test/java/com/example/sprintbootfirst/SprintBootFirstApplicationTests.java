@@ -11,21 +11,22 @@ import org.junit.Before;
 import org.junit.Test;
  
 import net.sourceforge.jwebunit.util.TestingEngineRegistry;
-
+import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SprintBootFirstApplicationTests {
-    @Before
-    public void prepare() {
+public class SprintBootFirstApplicationTests {
+@Before
+public void prepare() throws Exception {
         setTestingEngineKey(TestingEngineRegistry.TESTING_ENGINE_HTMLUNIT); 
-        setBaseUrl("http://localhost:8081/login");
+        setBaseUrl("http://localhost:8080/login");
     }
 
-	@Test
-	void contextLoads() {
+@Test
+public void contextLoads() {
         beginAt("login.jsp"); 
         assertTitleEquals("Sprint Boot JSP LogIn Page");
+        setTextField("username", "Jack1234");
   //      assertLinkPresent("home");
   //      clickLink("home");
   //      assertTitleEquals("Home");
