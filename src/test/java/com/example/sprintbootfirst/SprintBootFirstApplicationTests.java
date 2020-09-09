@@ -3,22 +3,19 @@ package com.example.sprintbootfirst;
 
 import org.junit.Before;
 import org.junit.Test;
- 
 import net.sourceforge.jwebunit.util.TestingEngineRegistry;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
-
 import org.springframework.boot.test.context.SpringBootTest;
-
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 @SpringBootTest
 public class SprintBootFirstApplicationTests {
+
 @Before
 public void preparePageload() throws FailingHttpStatusCodeException, MalformedURLException, IOException{
 	WebClient webClient = new WebClient();
@@ -28,9 +25,14 @@ public void preparePageload() throws FailingHttpStatusCodeException, MalformedUR
 }
 
 @Test
-public void contextLoads() {
+public void contextLoads() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 	 System.out.println("Start 111");
-//	 assertEquals("Google", currentPage.getTitleText());
+	 WebClient webClient1 = new WebClient();
+	 HtmlPage currentPage = webClient1.getPage("http://localhost:8080/login");
+
+	 
+	 //	 assertEquals("Google", currentPage.getTitleText());
+ //assertEquals("Google", currentPage.getTitleText());
   //       beginAt("login"); 
   //      assertTitleEquals("Sprint Boot JSP LogIn Page");
   //      setTextField("username", "Jack1234");
