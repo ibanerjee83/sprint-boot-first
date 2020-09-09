@@ -29,16 +29,7 @@ public void contextLoads() throws FailingHttpStatusCodeException, MalformedURLEx
 	 System.out.println("Start 111");
 	 WebClient webClient1 = new WebClient();
 	 HtmlPage currentPage = webClient1.getPage("http://localhost:8080/login");
-
-	 
-	 //	 assertEquals("Google", currentPage.getTitleText());
- //assertEquals("Google", currentPage.getTitleText());
-  //       beginAt("login"); 
-  //      assertTitleEquals("Sprint Boot JSP LogIn Page");
-  //      setTextField("username", "Jack1234");
-  //      assertLinkPresent("home");
-  //      clickLink("home");
-  //      assertTitleEquals("Home");
+	 assertEquals("Sprint Boot JSP LogIn Page", currentPage.getTitleText());
 	}
 
 }
