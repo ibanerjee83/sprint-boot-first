@@ -1,5 +1,5 @@
 <html>
-<title> Sprint Boot JSP LogIn Page</title>
+<title>Sprint Boot JSP LogIn Page</title>
 <body> 
 
 <form method="post">
