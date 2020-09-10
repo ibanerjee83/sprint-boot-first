@@ -11,7 +11,9 @@ import java.net.MalformedURLException;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 @SpringBootTest
 public class SprintBootFirstApplicationTests {
@@ -30,6 +32,16 @@ public void contextLoads() throws FailingHttpStatusCodeException, MalformedURLEx
 	 WebClient webClient1 = new WebClient();
 	 HtmlPage currentPage = webClient1.getPage("http://localhost:8080/login");
 	 assertEquals("Sprint Boot JSP LogIn Page", currentPage.getTitleText());
+//	Get the query input text
+	 HtmlInput queryInput = currentPage.getElementByName("name");
+	 queryInput.setValueAttribute("indra");
+	 HtmlInput queryInput2 = currentPage.getElementByName("password");
+	queryInput2.setValueAttribute("mypass");
+	 
+//	Submit the form by pressing the submit button
+	 HtmlSubmitInput submitBtn = currentPage.getElementByName("sub");
+	 currentPage = submitBtn.click();
+	 
 	}
 
 }

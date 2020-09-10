@@ -5,7 +5,7 @@
 <form method="post">
 Name: <input type="text" name="name"/>
 Password: <input type="password" name="password"/>
-<input type="submit"/>
+<input type="submit" name="sub"/>
 
 </form>
 <font color="red">${errmsg}</front> 
