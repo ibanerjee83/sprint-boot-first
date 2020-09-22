@@ -25,7 +25,7 @@ public void preparePageload() throws FailingHttpStatusCodeException, MalformedUR
 //	HtmlPage currentPage = webClient.getPage("http://localhost:8080");
 	assertEquals("Google", currentPage.getTitleText());
 }
-
+/*
 @Test
 public void contextLoads() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 	 System.out.println("Start 111");
@@ -43,5 +43,5 @@ public void contextLoads() throws FailingHttpStatusCodeException, MalformedURLEx
 	 currentPage = submitBtn.click();
 	 
 	}
-
+*/
 }
