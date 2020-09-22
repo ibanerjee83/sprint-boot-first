@@ -1,0 +1,53 @@
+i_banerjee83@cloudshell:~/myapp-springboot (striped-temple-269311)$
+i_banerjee83@cloudshell:~/myapp-springboot (striped-temple-269311)$ DEVSHELL_PROJECT_ID=striped-temple-269311
+i_banerjee83@cloudshell:~/myapp-springboot (striped-temple-269311)$ echo $DEVSHELL_PROJECT_ID
+striped-temple-269311
+i_banerjee83@cloudshell:~/myapp-springboot (striped-temple-269311)$ ls
+Dockerfile  sprint-boot-first-0.0.1-SNAPSHOT.war
+i_banerjee83@cloudshell:~/myapp-springboot (striped-temple-269311)$ gcloud builds submit --tag gcr.io/$DEVSHELL_PROJECT_ID/sringbootfirtsapp-image:v0.1 .
+
+
+
+
+DEVSHELL_PROJECT_ID=striped-temple-269311 
+
+gcloud builds submit --tag gcr.io/$DEVSHELL_PROJECT_ID/sringbootfirtsapp-image:v0.1 .
+
+ ---> 230c1859974d
+Step 4/5 : WORKDIR /usr/app
+ ---> Running in 5a44f84a27a9
+Removing intermediate container 5a44f84a27a9
+ ---> 69acc0ab245b
+Step 5/5 : ENTRYPOINT ["java","-jar","sprint-boot-first-0.0.1-SNAPSHOT.war"]
+ ---> Running in 039d008d5880
+Removing intermediate container 039d008d5880
+ ---> 8fddff31cb74
+Successfully built 8fddff31cb74
+Successfully tagged gcr.io/striped-temple-269311/sringbootfirtsapp-image:v0.1
+PUSH
+Pushing gcr.io/striped-temple-269311/sringbootfirtsapp-image:v0.1
+The push refers to repository [gcr.io/striped-temple-269311/sringbootfirtsapp-image]
+76b4cf7fcc2b: Preparing
+07b64d7c3d66: Preparing
+a1e7033f082e: Preparing
+78075328e0da: Preparing
+9f8566ee5135: Preparing
+07b64d7c3d66: Pushed
+78075328e0da: Pushed
+9f8566ee5135: Pushed
+76b4cf7fcc2b: Pushed
+a1e7033f082e: Pushed
+v0.1: digest: sha256:62052fa1ea03e093e23e8f85d7a15f68851dbc9dd8a4a4120ce4c57ea94498db size: 1366
+DONE
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ID                                    CREATE_TIME                DURATION  SOURCE                                                                                            
+   IMAGES                                                     STATUS
+4e310bec-df1d-407c-a617-582bf78954fe  2020-09-18T12:46:37+00:00  30S       gs://striped-temple-269311_cloudbuild/source/1600433192.301712-0bb591206a4e78bd09ac5937ef4ec3.tg
+z  gcr.io/striped-temple-269311/sringbootfirtsapp-image:v0.1  SUCCESS
+
+
+
+
+
+
+gcr.io/striped-temple-269311/sringbootfirtsapp-image:v0.1

@@ -1,0 +1,42 @@
+--
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: sringbootfirtsapp
+  labels:
+    app: sringbootfirtsapp
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sringbootfirtsapp
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: sringbootfirtsapp
+        tier: frontend
+    spec:
+      containers:
+      - name: sringbootfirtsapp
+        image: gcr.io/striped-temple-269311/sringbootfirtsapp-image:v0.1
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sringbootfirtsapp
+  labels:
+    app: sringbootfirtsapp
+    tier: frontend-lb
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: sringbootfirtsapp
+    tier: frontend
