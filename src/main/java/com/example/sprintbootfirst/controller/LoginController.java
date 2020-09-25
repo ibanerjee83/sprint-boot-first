@@ -23,6 +23,7 @@ public class LoginController {
   
 //    	System.out.println("name is"+ name);
 //    	model.put("name", name);
+//		return "hello";
 		return "login";
 	}
 
