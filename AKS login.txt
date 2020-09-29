@@ -1,0 +1,23 @@
+az account set --subscription xxxx-xx-xx-xx-xxxx
+
+az aks get-credentials --resource-group We-3-Tst-Rsg-Akc-99 --name We-3-Tst-Aks-Aksc-99
+
+
+Then it will redirect a device login with  device login code as it is mapped it with AAD RBAC 
+
+ 
+
+login with t then provide the id code 
+
+ 
+
+then the commands
+
+
+az aks browse --resource-group We-3-Tst-Rsg-Akc-99 --name We-3-Tst-Aks-Aksc-99
+
+az aks browse --resource-group myResourceGroup --name myAKSCluste
+
+
+K8s 1.16 or greater: http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy
+K8s 1.15 and below: http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard:/proxy

@@ -1,0 +1,196 @@
+ACR_NAME=weu3dacraks99.azurecr.io
+
+
+az acr build --registry $ACR_NAME --image appconsoleurl-imag:v1 .
+
+
+indranil@mystepstone MINGW64 ~/Desktop/indranil/java app/java app
+$ ACR_NAME=weu3dacraks99.azurecr.io
+
+indranil@mystepstone MINGW64 ~/Desktop/indranil/java app/java app
+$ az acr build --registry $ACR_NAME --image appconsoleurl-imag:v1 .
+The login server endpoint suffix '.azurecr.io' is automatically omitted.
+Packing source code into tar to upload...
+Uploading archived source code from 'C:\Users\indranil\AppData\Local\Temp\216\build_archive_ce3d171fd7e240f2845c1b6ade4a4a6e.tar.gz'...
+Sending context (30.563 MiB) to registry: weu3dacraks99...
+Queued a build with ID: cb1
+Waiting for an agent...
+2020/09/28 14:01:37 Downloading source code...
+2020/09/28 14:01:39 Finished downloading source code
+2020/09/28 14:01:40 Using acb_vol_7c39d6f3-15e3-4491-a61b-da41cae000e7 as the home volume
+2020/09/28 14:01:40 Setting up Docker configuration...
+2020/09/28 14:01:44 Successfully set up Docker configuration
+2020/09/28 14:01:44 Logging in to registry: weu3dacraks99.azurecr.io
+2020/09/28 14:01:45 Successfully logged into weu3dacraks99.azurecr.io
+2020/09/28 14:01:45 Executing step ID: build. Timeout(sec): 28800, Working directory: '', Network: ''
+2020/09/28 14:01:45 Scanning for dependencies...
+2020/09/28 14:01:46 Successfully scanned dependencies
+2020/09/28 14:01:46 Launching container with name: build
+Sending build context to Docker daemon  35.32MB
+Step 1/5 : FROM adoptopenjdk/openjdk14:jdk-14.0.2_12
+jdk-14.0.2_12: Pulling from adoptopenjdk/openjdk14
+171857c49d0f: Pulling fs layer
+419640447d26: Pulling fs layer
+61e52f862619: Pulling fs layer
+370bfabef6e5: Pulling fs layer
+0b361e3f368c: Pulling fs layer
+370bfabef6e5: Waiting
+0b361e3f368c: Waiting
+61e52f862619: Verifying Checksum
+61e52f862619: Download complete
+419640447d26: Verifying Checksum
+419640447d26: Download complete
+370bfabef6e5: Verifying Checksum
+370bfabef6e5: Download complete
+171857c49d0f: Verifying Checksum
+171857c49d0f: Download complete
+0b361e3f368c: Verifying Checksum
+0b361e3f368c: Download complete
+171857c49d0f: Pull complete
+419640447d26: Pull complete
+61e52f862619: Pull complete
+370bfabef6e5: Pull complete
+0b361e3f368c: Pull complete
+Digest: sha256:a374c03b830831435aad9a217c97a597a5ec89dfeaeaf786b34fc4113bd2d625
+Status: Downloaded newer image for adoptopenjdk/openjdk14:jdk-14.0.2_12
+ ---> a3957013b31b
+Step 2/5 : RUN mkdir -p /usr/app/
+ ---> Running in e1a2dc202dc5
+Removing intermediate container e1a2dc202dc5
+ ---> 35695e43ecd4
+Step 3/5 : COPY sprint-boot-first-0.0.1-SNAPSHOT.war /usr/app/
+ ---> 0559edce0842
+Step 4/5 : WORKDIR /usr/app
+ ---> Running in fe83e1b4b59a
+Removing intermediate container fe83e1b4b59a
+ ---> f9e51f33c0ef
+Step 5/5 : ENTRYPOINT ["java","-jar","sprint-boot-first-0.0.1-SNAPSHOT.war"]
+ ---> Running in d3d6514d4f72
+Removing intermediate container d3d6514d4f72
+ ---> 6dad1103d495
+Successfully built 6dad1103d495
+Successfully tagged weu3dacraks99.azurecr.io/appconsoleurl-imag:v1
+2020/09/28 14:02:11 Successfully executed container: build
+2020/09/28 14:02:11 Executing step ID: push. Timeout(sec): 3600, Working directory: '', Network: ''
+2020/09/28 14:02:11 Pushing image: weu3dacraks99.azurecr.io/appconsoleurl-imag:v1, attempt 1
+The push refers to repository [weu3dacraks99.azurecr.io/appconsoleurl-imag]
+bd590d4c9e10: Preparing
+4239efb7ce5c: Preparing
+2cc4f04cc29b: Preparing
+af50b929912b: Preparing
+7a694df0ad6c: Preparing
+3fd9df553184: Preparing
+805802706667: Preparing
+3fd9df553184: Waiting
+805802706667: Waiting
+4239efb7ce5c: Pushed
+7a694df0ad6c: Pushed
+bd590d4c9e10: Pushed
+3fd9df553184: Pushed
+af50b929912b: Pushed
+805802706667: Pushed
+2cc4f04cc29b: Pushed
+v1: digest: sha256:cdda4254ba083b52192b31c343f1e2c158dd84500bed037a35561c7b645c05d5 size: 1787
+2020/09/28 14:02:38 Successfully pushed image: weu3dacraks99.azurecr.io/appconsoleurl-imag:v1
+2020/09/28 14:02:38 Step ID: build marked as successful (elapsed time in seconds: 25.902126)
+2020/09/28 14:02:38 Populating digests for step ID: build...
+2020/09/28 14:02:41 Successfully populated digests for step ID: build
+2020/09/28 14:02:41 Step ID: push marked as successful (elapsed time in seconds: 27.673981)
+2020/09/28 14:02:41 The following dependencies were found:
+2020/09/28 14:02:41
+- image:
+    registry: weu3dacraks99.azurecr.io
+    repository: appconsoleurl-imag
+    tag: v1
+    digest: sha256:cdda4254ba083b52192b31c343f1e2c158dd84500bed037a35561c7b645c05d5
+  runtime-dependency:
+    registry: registry.hub.docker.com
+    repository: adoptopenjdk/openjdk14
+    tag: jdk-14.0.2_12
+    digest: sha256:a374c03b830831435aad9a217c97a597a5ec89dfeaeaf786b34fc4113bd2d625
+  git: {}
+
+Run ID: cb1 was successful after 1m5s
+
+
+
+indranil@mystepstone MINGW64 ~/Desktop/indranil/java app/java app
+$ kubectl apply -f app-consoleurl-dt.yml
+deployment.apps/app-consoleurl created
+service/app-consoleurl created
+
+indranil@mystepstone MINGW64 ~/Desktop/indranil/java app/java app
+$ kubectl get svc
+NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+app-consoleurl   ClusterIP   172.20.98.188   <none>        8080/TCP   8s
+kubernetes       ClusterIP   172.20.0.1      <none>        443/TCP    53d
+
+indranil@mystepstone MINGW64 ~/Desktop/indranil/java app/java app
+$ kubectl get pod
+NAME                              READY   STATUS    RESTARTS   AGE
+app-consoleurl-54d9f8fdd5-dxh9h   1/1     Running   0          18s
+
+indranil@mystepstone MINGW64 ~/Desktop/indranil/java app/java app
+$
+
+indranil@mystepstone MINGW64 ~/Desktop/indranil/java app/java app
+$ kubectl logs app-consoleurl-54d9f8fdd5-dxh9h
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.3.RELEASE)
+
+2020-09-28 14:41:53.976  INFO 1 --- [           main] c.e.s.SprintBootFirstApplication         : Starting SprintBootFirstApplication v0.0.1-SNAPSHOT on app-consoleurl-54d9f8fdd5-dxh9h with PID 1 (/usr/app/sprint-boot-first-0.0.1-SNAPSHOT.war started by root in /usr/app)
+2020-09-28 14:41:53.979  INFO 1 --- [           main] c.e.s.SprintBootFirstApplication         : No active profile set, falling back to default profiles: default
+2020-09-28 14:41:54.673  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-09-28 14:41:54.684  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-09-28 14:41:54.684  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.springframework.boot.loader.jar.Handler (file:/usr/app/sprint-boot-first-0.0.1-SNAPSHOT.war) to constructor sun.net.www.protocol.jar.Handler()
+WARNING: Please consider reporting this to the maintainers of org.springframework.boot.loader.jar.Handler
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2020-09-28 14:41:55.875  INFO 1 --- [           main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2020-09-28 14:41:55.944  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-09-28 14:41:55.944  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1925 ms
+2020-09-28 14:41:56.215  INFO 1 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-09-28 14:41:56.220 DEBUG 1 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-09-28 14:41:56.266 DEBUG 1 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 6 mappings in 'requestMappingHandlerMapping'
+2020-09-28 14:41:56.313 DEBUG 1 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-09-28 14:41:56.320 DEBUG 1 --- [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-09-28 14:41:56.368  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-09-28 14:41:56.377  INFO 1 --- [           main] c.e.s.SprintBootFirstApplication         : Started SprintBootFirstApplication in 2.714 seconds (JVM running for 3.042)
+
+indranil@mystepstone MINGW64 ~/Desktop/ind/java app/java app
+
+
+
+indranil@mystepstone MINGW64 ~/Desktop/ind
+$ kubectl apply -f appconurlingress.yml
+ingress.networking.k8s.io/appcon-ingress created
+
+indranil@mystepstone MINGW64 ~/Desktop/ind
+$ kubectl get ingress
+NAME             HOSTS   ADDRESS   PORTS   AGE
+appcon-ingress   *                 80      11s
+
+indranil@mystepstone MINGW64 ~/Desktop/ind
+$ vim appconurlingress.yml
+
+indranil@mystepstone MINGW64 ~/Desktop/ind
+$
+
+
+
+http://weu-03-tst-lb-aksc99-01.a.eu.example.com/login
+
+
+
+
+
+
+

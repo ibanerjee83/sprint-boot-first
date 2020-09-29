@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-consoleurl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-consoleurl
+  template:
+    metadata:
+      labels:
+        app: app-consoleurl
+    spec:
+      containers:
+      - name: app-consoleurl
+        image: weeus03devacraks99.azurecr.io/appconsoleurl-imag:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TITLE
+          value: "App console URL"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-consoleurl
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+  selector:
+    app: app-consoleurl
+ 

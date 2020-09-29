@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-consoleurlistio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-consoleurlistio
+  template:
+    metadata:
+      labels:
+        app: app-consoleurlistio
+    spec:
+      containers:
+      - name: app-consoleurlistio
+        image: weeus03devacraks99.azurecr.io/appconsoleurl-imag:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TITLE
+          value: "App console URL with istio"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-consoleurlistio
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+  selector:
+    app: app-consoleurlistio
