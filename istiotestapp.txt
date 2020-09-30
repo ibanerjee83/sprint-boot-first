@@ -1,0 +1,172 @@
+$ kubectl create namespace appconsolurlistio
+namespace/appconsolurlistio created
+
+$ kubectl get namespaces
+NAME                 STATUS   AGE
+appconsolurlistio    Active   7s
+default              Active   55d
+ingress-controller   Active   55d
+istio-system         Active   28h
+kube-node-lease      Active   55d
+kube-public          Active   55d
+kube-system          Active   55d
+rbac-manager         Active   55d
+velero               Active   55d
+
+
+$ kubectl label namespace appconsolurlistio istio-injection=enabled
+namespace/appconsolurlistio labeled
+
+
+indra@mystep01 MINGW64 ~/Desktop/istioapptest
+$ kubectl get namespaces  --show-labels
+NAME                 STATUS   AGE     LABELS
+appconsolurlistio    Active   7m55s   istio-injection=enabled
+default              Active   55d     <none>
+ingress-controller   Active   55d     app.kubernetes.io/managed-by=Helm,name=ingress-controller
+istio-system         Active   28h     <none>
+kube-node-lease      Active   55d     <none>
+kube-public          Active   55d     <none>
+kube-system          Active   55d     addonmanager.kubernetes.io/mode=Reconcile,control-plane=true,kubernetes.io/cluster-service=true
+rbac-manager         Active   55d     app.kubernetes.io/managed-by=Helm,name=rbac-manager
+velero               Active   55d     app.kubernetes.io/managed-by=Helm,name=velero
+
+
+
+$ cat app-consoleurlistio.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-consoleurlistio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-consoleurlistio
+  template:
+    metadata:
+      labels:
+        app: app-consoleurlistio
+    spec:
+      containers:
+      - name: app-consoleurlistio
+        image: weeus03devacraks99.azurecr.io/appconsoleurl-imag:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TITLE
+          value: "App console URL"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-consoleurlistio
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+  selector:
+    app: app-consoleurlistio
+
+
+
+
+$ kubectl apply -f app-consoleurlistio.yml --namespace  appconsolurlistio
+deployment.apps/app-consoleurlistio created
+service/app-consoleurlistio created
+
+$ kubectl get pod  -n  appconsolurlistio
+NAME                                READY   STATUS    RESTARTS   AGE
+app-consoleurlistio-bcb654f-4c4rv   2/2     Running   0          45s
+
+$ kubectl get pods -n  appconsolurlistio  --show-labels
+NAME                                READY   STATUS    RESTARTS   AGE     LABELS
+app-consoleurlistio-bcb654f-4c4rv   2/2     Running   0          4m15s   app=app-consoleurlistio,istio.io/rev=default,pod-template-hash=bcb654f,security.istio.io/tlsMode=istio,service.istio.io/canonical-name=app-consoleurlistio,service.istio.io/canonical-revision=latest
+
+
+$ kubectl describe pod -l "app=app-consoleurlistio" -n appconsolurlistio
+
+
+Events:
+  Type    Reason     Age        From                                          Message
+  ----    ------     ----       ----                                          -------
+  Normal  Scheduled  <unknown>  default-scheduler                             Successfully assigned appconsolurlistio/app-consoleurlistio-bcb654f-4c4rv to aks-ws03tnp9901-41068546-vmss000000
+  Normal  Pulling    5m59s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Pulling image "docker.io/istio/proxyv2:1.6.10"
+  Normal  Pulled     5m58s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Successfully pulled image "docker.io/istio/proxyv2:1.6.10"
+  Normal  Created    5m57s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Created container istio-init
+  Normal  Started    5m57s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Started container istio-init
+  Normal  Pulled     5m56s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Container image "weeus03devacraks99.azurecr.io/appconsoleurl-imag:v1" already present on machine
+  Normal  Created    5m56s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Created container app-consoleurlistio
+  Normal  Started    5m56s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Started container app-consoleurlistio
+  Normal  Pulling    5m56s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Pulling image "docker.io/istio/proxyv2:1.6.10"
+  Normal  Pulled     5m55s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Successfully pulled image "docker.io/istio/proxyv2:1.6.10"
+  Normal  Created    5m54s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Created container istio-proxy
+  Normal  Started    5m54s      kubelet, aks-ws03tnp9901-41068546-vmss000000  Started container istio-proxy
+
+
+
+$ kubectl get  svc -n appconsolurlistio --show-labels
+NAME                  TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+app-consoleurlistio   ClusterIP   172.20.3.11   <none>        8080/TCP   53m
+
+
+$ ls
+app-consoleurlistio.yml  appconsoleurlistiogateway.yml
+
+indra@mystep01 MINGW64 ~/Desktop/istioapptest
+$ kubectl apply -f appconsoleurlistiogateway.yml -n appconsolurlistio
+gateway.networking.istio.io/ingress-gateway-configuration-istio created
+error: the namespace from the provided object "default" does not match the namespace "appconsolurlistio". You must pass '--namespace=default' to perform this operation.
+
+indra@mystep01 MINGW64 ~/Desktop/istioapptest
+$ kubectl apply -f appconsoleurlistiogateway.yml -n appconsolurlistio
+gateway.networking.istio.io/ingress-gateway-configuration-istio unchanged
+virtualservice.networking.istio.io/app-consoleurlistio created
+
+indra@mystep01 MINGW64 ~/Desktop/istioapptest
+$ kubectl  get vs -n appconsolurlistio
+NAME                  GATEWAYS                                HOSTS   AGE
+app-consoleurlistio   [ingress-gateway-configuration-istio]   [*]     64s
+
+indra@mystep01 MINGW64 ~/Desktop/istioapptest
+$ kubectl  get all -n appconsolurlistio
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/app-consoleurlistio-bcb654f-4c4rv   2/2     Running   0          140m
+
+NAME                          TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+service/app-consoleurlistio   ClusterIP   172.20.3.11   <none>        8080/TCP   140m
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/app-consoleurlistio   1/1     1            1           140m
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/app-consoleurlistio-bcb654f   1         1         1       140m
+
+
+$ kubectl get  svc -n istio-system
+NAME                        TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                                                      AGE
+grafana                     ClusterIP      172.20.114.141   <none>          3000/TCP                                                     27h
+istio-ingressgateway        LoadBalancer   172.20.109.172   10.232.69.253   15021:32105/TCP,80:32371/TCP,443:31789/TCP,15443:31830/TCP   27h
+istiod                      ClusterIP      172.20.65.167    <none>          15010/TCP,15012/TCP,443/TCP,15014/TCP,853/TCP                27h
+jaeger-agent                ClusterIP      None             <none>          5775/UDP,6831/UDP,6832/UDP                                   27h
+jaeger-collector            ClusterIP      172.20.49.100    <none>          14267/TCP,14268/TCP,14250/TCP                                27h
+jaeger-collector-headless   ClusterIP      None             <none>          14250/TCP                                                    27h
+jaeger-query                ClusterIP      172.20.89.194    <none>          16686/TCP                                                    27h
+kiali                       ClusterIP      172.20.255.49    <none>          20001/TCP                                                    27h
+prometheus                  ClusterIP      172.20.209.41    <none>          9090/TCP                                                     27h
+tracing                     ClusterIP      172.20.248.162   <none>          80/TCP                                                       27h
+zipkin                      ClusterIP      172.20.65.9      <none>          9411/TCP                                                     27h
+
+indra@mystep01 MINGW64 ~/Desktop/istioapptest
+
+
+
+
+
+
+
+
+
+
+
+
