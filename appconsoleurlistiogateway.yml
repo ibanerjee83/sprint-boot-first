@@ -29,6 +29,8 @@ spec:
         prefix: "/login"
     - uri:                                                   
         prefix: "/authmem"
+    - uri:                                                   
+        prefix: "/resources"    
     route:                                                
     - destination:
         host: app-consoleurlistio
