@@ -1,0 +1,51 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: ingress-gateway-configuration-istio
+spec:
+  selector:
+    istio: ingressgateway                               
+  servers:
+  - port:
+      number: 8080
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: app-consoleurlistio
+  namespace: appconsolurlistio
+spec:
+  hosts:                                                    
+    - "*"                                                    
+  gateways:
+    - ingress-gateway-configuration-istio
+  http:
+  - match:                                                
+    - uri:                                                   
+        prefix: "/login"
+    - uri:                                                   
+        prefix: "/authmem"
+    - uri:                                                   
+        prefix: "/resources"    
+    route:                                                
+    - destination:
+        host: app-consoleurlistio
+        subset: v1
+      weight: 50
+
+  - match:                                                
+    - uri:                                                   
+        prefix: "/login"
+    - uri:                                                   
+        prefix: "/authmem"
+    - uri:                                                   
+        prefix: "/resources"    
+    route:                                                
+    - destination:
+        host: app-consoleurlistio
+        subset: v2
+      weight: 50
