@@ -1,0 +1,122 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-consoleurlistio1
+  namespace: istio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-consoleurlistio
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: app-consoleurlistio
+        version: v1
+    spec:
+      containers:
+      - name: app-consoleurlistio
+        image: guharoytamajit/appconsoleurl-imag:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TITLE
+          value: "App console URL with istio"	  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-consoleurlistio2
+  namespace: istio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-consoleurlistio
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: app-consoleurlistio
+        version: v2
+    spec:
+      containers:
+      - name: app-consoleurlistio
+        image: guharoytamajit/appconsoleurl-imag:v2
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TITLE
+          value: "App console URL Version2"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-consoleurlistio
+  namespace: istio
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+  selector:
+    app: app-consoleurlistio
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: ingress-gateway-configuration-istio
+  namespace: istio
+spec:
+  selector:
+    istio: ingressgateway                               
+  servers:
+  - port:
+      number: 8080
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: app-consoleurlistio
+  namespace: istio
+spec:
+  hosts:                                                    
+    - "*"                                                    
+  gateways:
+    - ingress-gateway-configuration-istio
+  http:
+  - match:                                                
+    - uri:                                                   
+        prefix: "/login"
+    - uri:                                                   
+        prefix: "/authmem"
+    - uri:                                                   
+        prefix: "/resources"    
+    route:                                                
+    - destination:
+        host: app-consoleurlistio
+        subset: v1
+      weight: 50
+    - destination:
+        host: app-consoleurlistio
+        subset: v2
+      weight: 50                                                  
+---
+kind: DestinationRule                                                                                        
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: app-consoleurlistio                                
+  namespace: istio
+spec:
+  host: app-consoleurlistio                                                                         
+  subsets:
+    - labels:                                                                                                
+        version: v1                                                                                      
+      name: v1
+    - labels:
+        version: v2
+      name: v2
