@@ -1,12 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-consoleurlistio
+  name: app-consoleurlistiov1
+  namespace: appconsolurlistio
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: app-consoleurlistio
+      version: v1
+
   template:
     metadata:
       labels:
@@ -15,7 +18,7 @@ spec:
     spec:
       containers:
       - name: app-consoleurlistio
-        image: weeus03devacraks99.azurecr.io/appconsoleurl-imag:v1
+        image: we03dvacra99.azurecr.io/appconsoleurl-imag:v1
         ports:
         - containerPort: 8080
         env:

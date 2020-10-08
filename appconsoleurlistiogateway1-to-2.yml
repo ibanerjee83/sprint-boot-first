@@ -2,6 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: ingress-gateway-configuration-istio
+  namespace: appconsolurlistio
 spec:
   selector:
     istio: ingressgateway                               
@@ -36,16 +37,7 @@ spec:
         host: app-consoleurlistio
         subset: v1
       weight: 50
-
-  - match:                                                
-    - uri:                                                   
-        prefix: "/login"
-    - uri:                                                   
-        prefix: "/authmem"
-    - uri:                                                   
-        prefix: "/resources"    
-    route:                                                
     - destination:
         host: app-consoleurlistio
         subset: v2
-      weight: 50
+      weight: 50                                                  
