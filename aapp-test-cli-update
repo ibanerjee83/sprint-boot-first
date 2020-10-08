@@ -1,0 +1,106 @@
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ ls
+ app-consoleurlistio.yml         appconsoleurlistiogateway1-to-2.yml   Dockerfile              sprint-boot-first-0.0.2-SNAPSHOT_v2.war
+ appconsoleurlistiogateway.yml   app-consoleurlistiov2.yml            'image deployment.txt'
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl apply -f app-consoleurlistiov1.yml --namespace  appconsolurlistio
+deployment.apps/app-consoleurlistio created
+service/app-consoleurlistio unchanged
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get pod -n appconsolurlistio
+NAME                                 READY   STATUS    RESTARTS   AGE
+app-consoleurlistio-8448c7fd-6886q   2/2     Running   0          11s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get deployment -n appconsolurlistio
+NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+app-consoleurlistio   1/1     1            1           54s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl apply -f app-consoleurlistiov1.yml --namespace  appconsolurlistio
+deployment.apps/app-consoleurlistiov1 created
+service/app-consoleurlistio unchanged
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get deployment -n appconsolurlistio
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+app-consoleurlistio     1/1     1            1           94s
+app-consoleurlistiov1   0/1     1            0           5s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get deployment -n appconsolurlistio
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+app-consoleurlistio     1/1     1            1           100s
+app-consoleurlistiov1   1/1     1            1           11s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get deployment -n appconsolurlistio
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+app-consoleurlistio     1/1     1            1           106s
+app-consoleurlistiov1   1/1     1            1           17s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl delete deployment  app-consoleurlistio -n appconsolurlistio
+deployment.apps "app-consoleurlistio" deleted
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get deployment -n appconsolurlistio
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+app-consoleurlistiov1   1/1     1            1           40s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl apply -f app-consoleurlistiov2.yml --namespace  appconsolurlistio
+deployment.apps/app-consoleurlistiov2 created
+service/app-consoleurlistio unchanged
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get deployment -n appconsolurlistio
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+app-consoleurlistiov1   1/1     1            1           4m23s
+app-consoleurlistiov2   1/1     1            1           13s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get pod -n appconsolurlistio
+NAME                                    READY   STATUS    RESTARTS   AGE
+app-consoleurlistiov1-8448c7fd-nkksq    2/2     Running   0          4m44s
+app-consoleurlistiov2-885f98c7d-xhw9z   2/2     Running   0          34s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ ls
+ appconsoleurlistiogateway.yml         app-consoleurlistiov1.yml   Dockerfile              sprint-boot-first-0.0.2-SNAPSHOT_v2.war
+ appconsoleurlistiogateway1-to-2.yml   app-consoleurlistiov2.yml  'image deployment.txt'
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl apply -f appconsoleurlistiogateway1-to-2.yml --namespace  appconsolurlistio
+gateway.networking.istio.io/ingress-gateway-configuration-istio unchanged
+virtualservice.networking.istio.io/app-consoleurlistio configured
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get vs -n appconsolurlistio
+NAME                  GATEWAYS                                HOSTS   AGE
+app-consoleurlistio   [ingress-gateway-configuration-istio]   [*]     7d16h
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get virtualservice -n appconsolurlistio
+NAME                  GATEWAYS                                HOSTS   AGE
+app-consoleurlistio   [ingress-gateway-configuration-istio]   [*]     7d16h
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ ls
+ appconsoleurlistioDestinationRules1-to-2.txt   app-consoleurlistiov1.yml  'image deployment.txt'
+ appconsoleurlistiogateway.yml                  app-consoleurlistiov2.yml   sprint-boot-first-0.0.2-SNAPSHOT_v2.war
+ appconsoleurlistiogateway1-to-2.yml            Dockerfile
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl apply -f appconsoleurlistioDestinationRules1-to-2.yml --namespace  appconsolurlistio
+destinationrule.networking.istio.io/app-consoleurlistio created
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$ kubectl get dr -n appconsolurlistio
+NAME                  HOST                  AGE
+app-consoleurlistio   app-consoleurlistio   14s
+
+indra@mystepcom MINGW64 ~/Desktop/istioapptest
+$
+
